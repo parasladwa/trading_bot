@@ -47,15 +47,6 @@ def sma_crossover(df, short_period=50, long_period=200):
     df_['signal'] = signals
     
     
-    prices = np.array(df_['price'], dtype = float)
-    short_ma = np.array(df_['short_ma'], dtype = float)
-    long_ma = np.array(df_['long_ma'], dtype = float)
-    plt.figure()
-    plt.plot(prices, color = 'black', )
-    plt.plot(short_ma, color = 'red')
-    plt.plot(long_ma, color = "blue")
-    plt.savefig("signal_plot.png")
-    plt.close()
 
     return df_
     

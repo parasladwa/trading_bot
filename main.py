@@ -6,11 +6,12 @@ from strategies import simple_moving_average_crossover as sma_c
 
 
 def main():
-    
+    START = [2020, 1, 1]
+    END = [2025, 1, 1]
     df = gather_data.request(
         ticker = "AMD",
-        start = [2020, 1, 1],
-        end = [2025, 1, 1]
+        start = START,
+        end = END
         ) 
 
     df_sigs = sma_c.sma_crossover(df)
@@ -28,6 +29,9 @@ def main():
     plt.plot(prices, color = 'black', )
     plt.plot(short_ma, color = 'red')
     plt.plot(long_ma, color = "blue")
+    plt.title("Blue = 200day MA, Red = 50day MA")
+    plt.ylabel("price")
+    plt.xlabel(f"{START[::-1]} to {END[::-1]}")
     plt.savefig("signal_plot.png")
     plt.close()
     
@@ -56,7 +60,7 @@ def main():
         
         
         
-    print(dollars, shares, dollars + row['price']*shares)
+    print((dollars + row['price']*shares)/100., " %")
 
     
     
