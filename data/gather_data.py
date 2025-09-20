@@ -37,6 +37,7 @@ def request(ticker = "AMZN", start = [2020, 1, 1], end = [2025, 1, 1]):
     bars = client.get_stock_bars(request)
     df = bars.df
 
+    df.to_csv(f"data/{ticker}.csv", index=False)
     
     return df
     

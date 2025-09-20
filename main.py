@@ -1,3 +1,5 @@
+import os
+import pandas as pd
 import numpy as np
 from data import gather_data
 import matplotlib.pyplot as plt
@@ -6,13 +8,22 @@ from strategies import simple_moving_average_crossover as sma_c
 
 
 def main():
+
     START = [2020, 1, 1]
     END = [2025, 1, 1]
-    df = gather_data.request(
-        ticker = "AMD",
-        start = START,
-        end = END
-        ) 
+    TICKER = "SPY"
+
+
+    if os.path.exists(f"data/{TICKER}.csv"):
+        df = pd.read_csv(f"data/{TICKER}.csv")
+    
+    else:
+        print(f"no local {TICKER} data, requesting from API...")
+        df = gather_data.request(
+            ticker = TICKER,
+            start = START,
+            end = END
+            ) 
 
     df_sigs = sma_c.sma_crossover(df)
    
