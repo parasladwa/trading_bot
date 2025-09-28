@@ -2,7 +2,7 @@
 
 A simple backtesting framework for a moving average crossover trading strategy using Alpaca historical data.
 
-To be implemented: Buy/sell indicators on visuals, argparse arguments, multiple strategies
+Made in a modular fashion such that strategies can be added and tested with ease.
 
 ---
 
@@ -19,9 +19,6 @@ To be implemented: Buy/sell indicators on visuals, argparse arguments, multiple 
 
 - **Backtesting:**  
   Simulates trades based on generated buy/sell signals. `main`
-
-- **Visualization:**  
-  Plots price and moving averages, saving the plot as `signal_plot.png`.
 
 ---
 
@@ -57,7 +54,7 @@ trading_bot/
    ```
     Can change parameters in `main.py` (dates, ticker, etc).
 
-    This will be improved such that inputs will be taken through CLI
+    This will be improved such that inputs will be taken through CLI (using argparse)
 
 ---
 ![Plot](signal_plot.png)
