@@ -4,7 +4,8 @@ import numpy as np
 from data import gather_data
 import matplotlib.pyplot as plt
 from strategies import simple_moving_average_crossover as sma_c
-
+from strategies import stochastic_differential_equation as sde
+import argparse
 
 
 def main():
@@ -79,4 +80,63 @@ def main():
     
     
     
-main() 
+#main() 
+
+
+def test():
+
+    START = [2020, 1, 1]
+    END = [2025, 1, 1]
+    TICKER = "SPY"
+
+
+    if os.path.exists(f"data/{TICKER}.csv"):
+        df = pd.read_csv(f"data/{TICKER}.csv")
+    
+    else:
+        print(f"no local {TICKER} data, requesting from API...")
+        df = gather_data.request(
+            ticker = TICKER,
+            start = START,
+            end = END
+            ) 
+
+    df_sigs = sde.gbm_monte_carlo(df)
+
+    print(df_sigs)
+
+
+
+
+
+
+test()
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
