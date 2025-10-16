@@ -1,11 +1,13 @@
 import os
 import pandas as pd
 import numpy as np
+import sys
+from pathlib import Path
+parent_dir = Path(__file__).resolve().parent.parent
+sys.path.append(str(parent_dir))
 from data import gather_data
 import matplotlib.pyplot as plt
-from strategies import simple_moving_average_crossover as sma_c
-from strategies import stochastic_differential_equation as sde
-import argparse
+import sma_strategy
 
 
 def main():
@@ -15,8 +17,8 @@ def main():
     TICKER = "SPY"
 
 
-    if os.path.exists(f"data/{TICKER}.csv"):
-        df = pd.read_csv(f"data/{TICKER}.csv")
+    if os.path.exists(f"../data/{TICKER}.csv"):
+        df = pd.read_csv(f"../data/{TICKER}.csv")
     
     else:
         print(f"no local {TICKER} data, requesting from API...")
@@ -26,7 +28,7 @@ def main():
             end = END
             ) 
 
-    df_sigs = sma_c.sma_crossover(df)
+    df_sigs =sma_strategy.sma_crossover(df)
    
    
     dollars = 10000
@@ -74,69 +76,4 @@ def main():
         
     print((dollars + row['price']*shares)/100., " %")
 
-    
-    
-    
-    
-    
-    
-#main() 
-
-
-def test():
-
-    START = [2020, 1, 1]
-    END = [2025, 1, 1]
-    TICKER = "SPY"
-
-
-    if os.path.exists(f"data/{TICKER}.csv"):
-        df = pd.read_csv(f"data/{TICKER}.csv")
-    
-    else:
-        print(f"no local {TICKER} data, requesting from API...")
-        df = gather_data.request(
-            ticker = TICKER,
-            start = START,
-            end = END
-            ) 
-
-    df_sigs = sde.gbm_monte_carlo(df)
-
-    print(df_sigs)
-
-
-
-
-
-
-test()
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+main()
