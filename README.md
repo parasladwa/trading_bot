@@ -29,9 +29,13 @@ trading_bot/
 │
 ├── data/
 │   └── gather_data.py
-├── strategies/
+|   └── DATAFILES ...
+├── strategies
 │   └── simple_moving_average_crossover.py
-├── main.py
+|       └── sma_backtest.py
+|       └── sma_strategy.py
+│   └──  geometric_brownian_motion.py
+|        └── gbm_strategy.py
 ├── .gitattributes
 └── README.md
 ```
@@ -49,12 +53,16 @@ trading_bot/
    ```
 
 3. **Run the bot**
-   ```
-   python main.py
-   ```
-    Can change parameters in `main.py` (dates, ticker, etc).
-
     This will be improved such that inputs will be taken through CLI (using argparse)
+
+---
+## TO-DO
+
+- Implement gbm strategy
+- Make a main.py to run each via argparse
+- Refine readme
+- Consider bid/ask spreads
+- Calculate metrics (Sharpe, win-rate, )
 
 ---
 ![Plot](signal_plot.png)
