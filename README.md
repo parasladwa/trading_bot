@@ -57,10 +57,8 @@ trading_bot/
 
 ---
 ## TO-DO
-
-- Implement gbm strategy
-- Make a main.py to run each via argparse
-- Refine readme
+- For the gbm strategy it seems worthy it to research window timeframes and optimize this value
+- Make a main.py to backtest each strategy via argparse
 - Consider bid/ask spreads
 - Calculate metrics (Sharpe, win-rate, )
 

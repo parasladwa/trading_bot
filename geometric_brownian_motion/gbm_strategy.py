@@ -9,7 +9,7 @@ parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 from data import gather_data
 
-N_SIMS = 1000
+N_SIMS = 5000
 WINDOW = 50
 
 
@@ -17,12 +17,25 @@ def gbm_monte_carlo(df):
     #consider only open openings
     prices = df['open']
     
-    print(prices) 
-
-
-
+    print(prices)
     
-
+    
+    #rolling window
+    p = prices.values
+    for t in range(WINDOW, len(p)):
+    
+        window = p[t-WINDOW : t]
+        
+        log_returns = np.log(window[1:] / window[:-1])
+        sigma = np.std(log_returns)
+        mu = np.mean(log_returns)  + 0.5* sigma **2
+        
+        Z = np.random.normal(size = N_SIMS)
+        sim_prices = window[-1] * np.exp((mu-0.5*sigma**2) + sigma*Z)
+        forecast = np.mean(sim_prices)
+        
+        print(forecast, prices[t]) 
+        
     return None
     
 
