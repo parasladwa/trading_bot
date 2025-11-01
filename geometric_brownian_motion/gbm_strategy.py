@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from collections import deque
 import sys
 import os
 from pathlib import Path
@@ -9,16 +8,12 @@ parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 from data import gather_data
 
-N_SIMS = 5000
-WINDOW = 50
 
-
-def gbm_monte_carlo(df):
+def gbm_monte_carlo(df, N_SIMS = 1000, WINDOW = 50):
     #consider only open openings
     prices = df['open']
     
-    print(prices)
-    
+    res = np.zeros((len(prices) - WINDOW, 2), dtype=float)
     
     #rolling window
     p = prices.values
@@ -34,10 +29,13 @@ def gbm_monte_carlo(df):
         sim_prices = window[-1] * np.exp((mu-0.5*sigma**2) + sigma*Z)
         forecast = np.mean(sim_prices)
         
-        print(forecast, prices[t]) 
+        #print(window[-3:]) 
+        #print(p[t-3:t])
         
-    return None
-    
+        res[t-WINDOW, 0] = prices[t]
+        res[t-WINDOW, 1] = forecast
+
+    return res
 
 
 
